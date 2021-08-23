@@ -33,6 +33,11 @@
     "csb:test": "npm test -- --runInBand --watchAll"
   },
   "dependencies": {
+    "@types/unist": "^2.0.6",
+    "canvas": "^2.8.0",
+    "mdast-util-from-markdown": "^0.8.5",
+    "mdast-util-frontmatter": "^0.2.0",
+    "mdast-util-to-markdown": "^0.6.5",
     "yargs": "^17.1.1"
   },
   "devDependencies": {
