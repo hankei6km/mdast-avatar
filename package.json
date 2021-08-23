@@ -1,9 +1,20 @@
 {
-  "name": "my-starter-ts-npm-cli-and-lib",
-  "version": "0.1.2-0",
-  "description": "Typescript で CLI とライブラリの npm パッケージを作成するためのスターター。",
+  "name": "mdast-aveter",
+  "version": "0.1.0-0",
+  "description": "embed avater image into mdast",
   "license": "MIT",
-  "keywords": [],
+  "author": "hankei6km <hankei6km@gmail.com> (https://github.com/hankei6km)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hankei6km/mdast-avater.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hankei6km/mdast-avater/issues"
+  },
+  "keywords": [
+    "mdast",
+    "markdown"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -22,17 +33,16 @@
     "csb:test": "npm test -- --runInBand --watchAll"
   },
   "dependencies": {
-    "yargs": "^16.2.0"
+    "yargs": "^17.1.1"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.23",
-    "@types/node": "^14.14.28",
-    "@types/yargs": "^16.0.1",
-    "jest": "^26.6.3",
-    "nodemon": "^2.0.7",
-    "npm-check": "^5.9.2",
-    "ts-jest": "^26.5.5",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.2.4"
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.1",
+    "@types/yargs": "^17.0.2",
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.12",
+    "ts-jest": "^27.0.5",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.3.5"
   }
 }
