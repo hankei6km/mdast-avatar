@@ -11,12 +11,12 @@ $ cat avater-deck.md | mdaveter > avater-embedded-deck.md
 source:
 
 ```markdown
-![My avater](avater:https://images.microcms-assets.io/assets/cc433627f35c4232b7cb97e0376507a7/ab548880212d4734afa158fd046a9a87/mdast-qrcode-logo-profile-rect.png)
+![My avater](avater:https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)
 ```
 
 yield:
 
-![My avater](avater:https://images.microcms-assets.io/assets/cc433627f35c4232b7cb97e0376507a7/ab548880212d4734afa158fd046a9a87/mdast-qrcode-logo-profile-rect.png)
+![My avater](avater:https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)
 
 ---
 
@@ -25,12 +25,12 @@ yield:
 source:
 
 ```markdown
-![avater:My avater](https://images.microcms-assets.io/assets/cc433627f35c4232b7cb97e0376507a7/ab548880212d4734afa158fd046a9a87/mdast-qrcode-logo-profile-rect.png)
+![avater:My avater](https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)
 ```
 
 yield:
 
-![avater:My avater](https://images.microcms-assets.io/assets/cc433627f35c4232b7cb97e0376507a7/ab548880212d4734afa158fd046a9a87/mdast-qrcode-logo-profile-rect.png)
+![avater:My avater](https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)
 
 ---
 
@@ -39,12 +39,12 @@ yield:
 source:
 
 ```markdown
-![avater:avater_fillstyle-10B981](https://images.microcms-assets.io/assets/cc433627f35c4232b7cb97e0376507a7/ab548880212d4734afa158fd046a9a87/mdast-qrcode-logo-profile-rect.png)
+![avater:avater_fillstyle-10B981](https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)
 ```
 
 yield:
 
-![avater:avater_fillstyle-10B981](https://images.microcms-assets.io/assets/cc433627f35c4232b7cb97e0376507a7/ab548880212d4734afa158fd046a9a87/mdast-qrcode-logo-profile-rect.png)
+![avater:avater_fillstyle-10B981](https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)
 
 ---
 
@@ -53,14 +53,14 @@ yield:
 source:
 
 ```markdown
-![avater:](https://images.microcms-assets.io/assets/cc433627f35c4232b7cb97e0376507a7/ab548880212d4734afa158fd046a9a87/mdast-qrcode-logo-profile-rect.png)
-![Base image](https://images.microcms-assets.io/assets/bc4007b30bdf402f96161596bd7cbcca/2ca9d04e541745ad97b0fcdce2a92764/sample04.jpg?auto=compress%2Cenhance&fit64=Y3JvcA&h64=MjAw&w64=MjAw)
+![avater:](https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)
+![Base image](https://images.microcms-assets.io/assets/bc4007b30bdf402f96161596bd7cbcca/2ca9d04e541745ad97b0fcdce2a92764/sample04.jpg?auto=compress%2Cenhance&fit64=Y3JvcA&h64=MTgw&w64=MzIw)
 ```
 
 yield:
 
-![avater:](https://images.microcms-assets.io/assets/cc433627f35c4232b7cb97e0376507a7/ab548880212d4734afa158fd046a9a87/mdast-qrcode-logo-profile-rect.png)
-![Base image](https://images.microcms-assets.io/assets/bc4007b30bdf402f96161596bd7cbcca/2ca9d04e541745ad97b0fcdce2a92764/sample04.jpg?auto=compress%2Cenhance&fit64=Y3JvcA&h64=MjAw&w64=MjAw)
+![avater:](https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)
+![Base image](https://images.microcms-assets.io/assets/bc4007b30bdf402f96161596bd7cbcca/2ca9d04e541745ad97b0fcdce2a92764/sample04.jpg?auto=compress%2Cenhance&fit64=Y3JvcA&h64=MTgw&w64=MzIw)
 
 ---
 
@@ -69,32 +69,14 @@ yield:
 source:
 
 ```markdown
-![avater:avater_position-right-bottom](https://images.microcms-assets.io/assets/cc433627f35c4232b7cb97e0376507a7/ab548880212d4734afa158fd046a9a87/mdast-qrcode-logo-profile-rect.png)
-![Base image](https://images.microcms-assets.io/assets/bc4007b30bdf402f96161596bd7cbcca/2ca9d04e541745ad97b0fcdce2a92764/sample04.jpg?auto=compress%2Cenhance&fit64=Y3JvcA&h64=MjAw&w64=MjAw)
+![avater:avater_position-right-bottom](https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)
+![Base image](https://images.microcms-assets.io/assets/bc4007b30bdf402f96161596bd7cbcca/2ca9d04e541745ad97b0fcdce2a92764/sample04.jpg?auto=compress%2Cenhance&fit64=Y3JvcA&h64=MTgw&w64=MzIw)
 ```
 
 yield:
 
-![avater:avater_position-right-bottom](https://images.microcms-assets.io/assets/cc433627f35c4232b7cb97e0376507a7/ab548880212d4734afa158fd046a9a87/mdast-qrcode-logo-profile-rect.png)
-![Base image](https://images.microcms-assets.io/assets/bc4007b30bdf402f96161596bd7cbcca/2ca9d04e541745ad97b0fcdce2a92764/sample04.jpg?auto=compress%2Cenhance&fit64=Y3JvcA&h64=MjAw&w64=MjAw)
-
----
-
-## imgix redering api
-
-source:
-
-```markdown
-![avater:avater_position-right-bottom-avater_query-hue64=MzE0&rot64=OTA](https://images.microcms-assets.io/assets/cc433627f35c4232b7cb97e0376507a7/ab548880212d4734afa158fd046a9a87/mdast-qrcode-logo-profile-rect.png)
-![Base image](https://images.microcms-assets.io/assets/bc4007b30bdf402f96161596bd7cbcca/2ca9d04e541745ad97b0fcdce2a92764/sample04.jpg?auto=compress%2Cenhance&fit64=Y3JvcA&h64=MjAw&w64=MjAw)
-```
-
-yield:
-
-![avater:avater_position-right-bottom-avater_query-hue64=MzE0&rot64=OTA](https://images.microcms-assets.io/assets/cc433627f35c4232b7cb97e0376507a7/ab548880212d4734afa158fd046a9a87/mdast-qrcode-logo-profile-rect.png)
-![Base image](https://images.microcms-assets.io/assets/bc4007b30bdf402f96161596bd7cbcca/2ca9d04e541745ad97b0fcdce2a92764/sample04.jpg?auto=compress%2Cenhance&fit64=Y3JvcA&h64=MjAw&w64=MjAw)
-
----
+![avater:avater_position-right-bottom](https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)
+![Base image](https://images.microcms-assets.io/assets/bc4007b30bdf402f96161596bd7cbcca/2ca9d04e541745ad97b0fcdce2a92764/sample04.jpg?auto=compress%2Cenhance&fit64=Y3JvcA&h64=MTgw&w64=MzIw)
 
 ## Data URL
 
