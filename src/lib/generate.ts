@@ -1,99 +1,99 @@
 import { createCanvas, loadImage } from 'canvas';
-import { MdAvaterOptions, mdAvaterOptionsDefaults } from '../avater';
+import { MdAvatarOptions, mdAvatarOptionsDefaults } from '../avatar';
 import { replaceQuery } from './util';
 
-export async function generateAvater(
-  avater: string,
+export async function generateAvatar(
+  avatar: string,
   base?: string,
-  inMdqrOptions: MdAvaterOptions = {}
+  inMdqrOptions: MdAvatarOptions = {}
 ) {
-  const mdqrOptions = Object.assign({ avater: {}, format: {} }, inMdqrOptions);
-  const avaterQuery =
-    mdqrOptions.avater.query !== undefined
-      ? mdqrOptions.avater.query
-      : mdAvaterOptionsDefaults.avater.query;
-  const avaterImg = await loadImage(replaceQuery(avater, avaterQuery)).catch(
+  const mdqrOptions = Object.assign({ avatar: {}, format: {} }, inMdqrOptions);
+  const avatarQuery =
+    mdqrOptions.avatar.query !== undefined
+      ? mdqrOptions.avatar.query
+      : mdAvatarOptionsDefaults.avatar.query;
+  const avatarImg = await loadImage(replaceQuery(avatar, avatarQuery)).catch(
     (err) => {
       // TODO: error 画像を表示させる.
-      console.error(`avater loadImage: ${err}`);
+      console.error(`avatar loadImage: ${err}`);
     }
   );
-  if (avaterImg) {
+  if (avatarImg) {
     const baseImg = base
       ? await loadImage(base).catch((err) => {
           // TODO: error 画像を表示させる.
           console.error(`base loadImage: ${err}`);
         })
       : '';
-    let canvasWidth = baseImg ? baseImg.width : avaterImg.width;
-    let canvasHeight = baseImg ? baseImg.width : avaterImg.height;
-    const avaterPosition =
-      mdqrOptions.avater.position !== undefined
-        ? mdqrOptions.avater.position
-        : mdAvaterOptionsDefaults.avater.position;
-    const avaterFillstyle =
-      mdqrOptions.avater.fillstyle !== undefined
-        ? mdqrOptions.avater.fillstyle
-        : mdAvaterOptionsDefaults.avater.fillstyle;
-    const avaterFillshape =
-      mdqrOptions.avater.fillshape !== undefined
-        ? mdqrOptions.avater.fillshape
-        : mdAvaterOptionsDefaults.avater.fillshape;
-    const avaterPadding =
-      mdqrOptions.avater.padding !== undefined
-        ? mdqrOptions.avater.padding
-        : mdAvaterOptionsDefaults.avater.padding;
-    const avaterMargin =
-      mdqrOptions.avater.margin !== undefined
-        ? mdqrOptions.avater.margin
-        : mdAvaterOptionsDefaults.avater.margin;
-    const avaterFit =
-      mdqrOptions.avater.fit !== undefined
-        ? mdqrOptions.avater.fit
-        : mdAvaterOptionsDefaults.avater.fit;
+    let canvasWidth = baseImg ? baseImg.width : avatarImg.width;
+    let canvasHeight = baseImg ? baseImg.width : avatarImg.height;
+    const avatarPosition =
+      mdqrOptions.avatar.position !== undefined
+        ? mdqrOptions.avatar.position
+        : mdAvatarOptionsDefaults.avatar.position;
+    const avatarFillstyle =
+      mdqrOptions.avatar.fillstyle !== undefined
+        ? mdqrOptions.avatar.fillstyle
+        : mdAvatarOptionsDefaults.avatar.fillstyle;
+    const avatarFillshape =
+      mdqrOptions.avatar.fillshape !== undefined
+        ? mdqrOptions.avatar.fillshape
+        : mdAvatarOptionsDefaults.avatar.fillshape;
+    const avatarPadding =
+      mdqrOptions.avatar.padding !== undefined
+        ? mdqrOptions.avatar.padding
+        : mdAvatarOptionsDefaults.avatar.padding;
+    const avatarMargin =
+      mdqrOptions.avatar.margin !== undefined
+        ? mdqrOptions.avatar.margin
+        : mdAvatarOptionsDefaults.avatar.margin;
+    const avatarFit =
+      mdqrOptions.avatar.fit !== undefined
+        ? mdqrOptions.avatar.fit
+        : mdAvatarOptionsDefaults.avatar.fit;
     const formatType =
       mdqrOptions.format.type !== undefined
         ? mdqrOptions.format.type
-        : mdAvaterOptionsDefaults.format.type;
+        : mdAvatarOptionsDefaults.format.type;
     const formatQuality =
       mdqrOptions.format.quality !== undefined
         ? mdqrOptions.format.quality
-        : mdAvaterOptionsDefaults.format.quality;
+        : mdAvatarOptionsDefaults.format.quality;
 
     const canvas = createCanvas(canvasWidth, canvasHeight);
 
     const ctx = canvas.getContext('2d');
     let x = 0;
     let y = 0;
-    let w = avaterImg.width;
-    let h = avaterImg.height;
+    let w = avatarImg.width;
+    let h = avatarImg.height;
     if (baseImg) {
       ctx.drawImage(baseImg, 0, 0, baseImg.width, baseImg.height);
       const baseSize =
         baseImg.width < baseImg.height ? baseImg.width : baseImg.height;
-      if (avaterFit > 0) {
-        const fitSize = (baseSize * avaterFit) / 100;
+      if (avatarFit > 0) {
+        const fitSize = (baseSize * avatarFit) / 100;
         w = fitSize;
         h = fitSize;
-        if (avaterImg.width > avaterImg.height) {
+        if (avatarImg.width > avatarImg.height) {
           w = fitSize;
-          h = (avaterImg.height * fitSize) / avaterImg.width;
-        } else if (avaterImg.width < avaterImg.height) {
-          w = (avaterImg.width * fitSize) / avaterImg.height;
+          h = (avatarImg.height * fitSize) / avatarImg.width;
+        } else if (avatarImg.width < avatarImg.height) {
+          w = (avatarImg.width * fitSize) / avatarImg.height;
           h = fitSize;
         }
       }
       x =
-        avaterPosition === 'center'
+        avatarPosition === 'center'
           ? (baseImg.width - w) / 2
-          : baseImg.width - (w + avaterMargin);
+          : baseImg.width - (w + avatarMargin);
       y =
-        avaterPosition === 'center'
+        avatarPosition === 'center'
           ? (baseImg.height - h) / 2
-          : baseImg.height - (h + avaterMargin);
+          : baseImg.height - (h + avatarMargin);
     }
-    ctx.fillStyle = avaterFillstyle;
-    if (avaterFillshape === 'circle') {
+    ctx.fillStyle = avatarFillstyle;
+    if (avatarFillshape === 'circle') {
       ctx.beginPath();
       ctx.arc(
         x + w / 2,
@@ -107,13 +107,13 @@ export async function generateAvater(
       ctx.clip();
     }
     ctx.fillRect(x, y, w, h);
-    if (avaterFillshape === 'circle') {
+    if (avatarFillshape === 'circle') {
       ctx.beginPath();
       ctx.arc(
         x + w / 2,
         y + h / 2,
         // 楕円には対応していない.
-        w / 2 - avaterPadding,
+        w / 2 - avatarPadding,
         0,
         2 * Math.PI,
         false
@@ -121,11 +121,11 @@ export async function generateAvater(
       ctx.clip();
     }
     ctx.drawImage(
-      avaterImg,
-      x + avaterPadding,
-      y + avaterPadding,
-      w - avaterPadding * 2,
-      h - avaterPadding * 2
+      avatarImg,
+      x + avatarPadding,
+      y + avatarPadding,
+      w - avatarPadding * 2,
+      h - avatarPadding * 2
     );
     const ret =
       formatType === 'png'

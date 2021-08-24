@@ -1,5 +1,5 @@
 import { Content, Image } from 'mdast';
-import { AvaterSourcKind } from '../avater';
+import { AvatarSourcKind } from '../avatar';
 import {
   makerProtocol,
   makerFile,
@@ -41,14 +41,14 @@ export function pickBase(c: Content[], idx: number): number[] {
 export function selectTarget(
   c: Content[],
   idx: number
-): { kind: AvaterSourcKind; avaterContent: Content[]; removeIdxs: number[] } {
+): { kind: AvatarSourcKind; avatarContent: Content[]; removeIdxs: number[] } {
   const ret: {
-    kind: AvaterSourcKind;
-    avaterContent: Content[];
+    kind: AvatarSourcKind;
+    avatarContent: Content[];
     removeIdxs: number[];
   } = {
     kind: '',
-    avaterContent: [],
+    avatarContent: [],
     removeIdxs: []
   };
   const top = c[idx];
@@ -76,11 +76,11 @@ export function selectTarget(
     }
   }
   if (ret.kind !== '') {
-    ret.avaterContent.push(top);
+    ret.avatarContent.push(top);
     const baseIdx = pickBase(c, idx);
     const llen = baseIdx.length;
     if (llen > 0) {
-      ret.avaterContent.push(c[baseIdx[llen - 1]]);
+      ret.avatarContent.push(c[baseIdx[llen - 1]]);
       ret.removeIdxs = [idx]; // 元画像をbese画像に埋め込むので base 画像を削除.
       if (llen > 1) {
         ret.removeIdxs.push(baseIdx[0]);

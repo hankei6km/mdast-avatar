@@ -1,4 +1,4 @@
-import { generateAvater } from './generate';
+import { generateAvatar } from './generate';
 const consoleErrror = console.error;
 jest.mock('canvas', () => {
   const mockDrawImage = jest.fn();
@@ -71,9 +71,9 @@ afterEach(() => {
   require('canvas')._reset();
 });
 
-describe('generateAvater()', () => {
-  it('should generate avater image', async () => {
-    const res = generateAvater('avater');
+describe('generateAvatar()', () => {
+  it('should generate avatar image', async () => {
+    const res = generateAvatar('avatar');
     expect(await res).toEqual('check');
     const {
       mockBeginPath,
@@ -86,7 +86,7 @@ describe('generateAvater()', () => {
       mockCanvasToDataURL
     } = require('canvas')._getMocks();
     expect(mockLoadImage.mock.calls.length).toEqual(1);
-    expect(mockLoadImage.mock.calls[0][0]).toEqual('avater');
+    expect(mockLoadImage.mock.calls[0][0]).toEqual('avatar');
     expect(mockCreateCanvas.mock.calls[0]).toEqual([100, 100]);
     expect(mockBeginPath.mock.calls.length).toEqual(2);
     expect(mockFillRect.mock.calls.length).toEqual(1);
@@ -106,8 +106,8 @@ describe('generateAvater()', () => {
     expect(mockCanvasToDataURL.mock.calls.length).toEqual(1);
     expect(mockCanvasToDataURL.mock.calls[0]).toEqual(['image/png']);
   });
-  it('should generate avater with base image', async () => {
-    const res = generateAvater('avater', 'base');
+  it('should generate avatar with base image', async () => {
+    const res = generateAvatar('avatar', 'base');
     expect(await res).toEqual('check');
     const {
       mockBeginPath,
@@ -119,7 +119,7 @@ describe('generateAvater()', () => {
       mockDrawImage
     } = require('canvas')._getMocks();
     expect(mockLoadImage.mock.calls.length).toEqual(2);
-    expect(mockLoadImage.mock.calls[0][0]).toEqual('avater');
+    expect(mockLoadImage.mock.calls[0][0]).toEqual('avatar');
     expect(mockLoadImage.mock.calls[1][0]).toEqual('base');
     expect(mockCreateCanvas.mock.calls[0]).toEqual([200, 200]);
     expect(mockBeginPath.mock.calls.length).toEqual(2);
@@ -159,9 +159,9 @@ describe('generateAvater()', () => {
       42
     ]);
   });
-  it('should generate avater with base image(right-bottom)', async () => {
-    const res = generateAvater('avater', 'base', {
-      avater: { position: 'right-bottom' }
+  it('should generate avatar with base image(right-bottom)', async () => {
+    const res = generateAvatar('avatar', 'base', {
+      avatar: { position: 'right-bottom' }
     });
     expect(await res).toEqual('check');
     const {
@@ -208,7 +208,7 @@ describe('generateAvater()', () => {
       42
     ]);
   });
-  it('should generate avater with base image(w > h)', async () => {
+  it('should generate avatar with base image(w > h)', async () => {
     const { mockLoadImage } = require('canvas')._getMocks();
     mockLoadImage.mockReset();
     mockLoadImage
@@ -220,7 +220,7 @@ describe('generateAvater()', () => {
         width: 200,
         height: 100
       });
-    const res = generateAvater('avater', 'base', {});
+    const res = generateAvatar('avatar', 'base', {});
     expect(await res).toEqual('check');
     const { mockDrawImage } = require('canvas')._getMocks();
     expect(mockDrawImage.mock.calls[1]).toEqual([
@@ -231,7 +231,7 @@ describe('generateAvater()', () => {
       17
     ]);
   });
-  it('should generate avater with base image(h > w)', async () => {
+  it('should generate avatar with base image(h > w)', async () => {
     const { mockLoadImage } = require('canvas')._getMocks();
     mockLoadImage.mockReset();
     mockLoadImage
@@ -243,7 +243,7 @@ describe('generateAvater()', () => {
         width: 100,
         height: 200
       });
-    const res = generateAvater('avater', 'base', {});
+    const res = generateAvatar('avatar', 'base', {});
     expect(await res).toEqual('check');
     const { mockDrawImage } = require('canvas')._getMocks();
     expect(mockDrawImage.mock.calls[1]).toEqual([
@@ -254,8 +254,8 @@ describe('generateAvater()', () => {
       17
     ]);
   });
-  it('should generate avater with base image(disable fit)', async () => {
-    const res = generateAvater('avater', 'base', { avater: { fit: 0 } });
+  it('should generate avatar with base image(disable fit)', async () => {
+    const res = generateAvatar('avatar', 'base', { avatar: { fit: 0 } });
     expect(await res).toEqual('check');
     const { mockDrawImage } = require('canvas')._getMocks();
     expect(mockDrawImage.mock.calls[1]).toEqual([
@@ -266,8 +266,8 @@ describe('generateAvater()', () => {
       92
     ]);
   });
-  it('should generate avater with base image(padding)', async () => {
-    const res = generateAvater('avater', 'base', { avater: { padding: 10 } });
+  it('should generate avatar with base image(padding)', async () => {
+    const res = generateAvatar('avatar', 'base', { avatar: { padding: 10 } });
     expect(await res).toEqual('check');
     const {
       mockArc,
@@ -291,21 +291,21 @@ describe('generateAvater()', () => {
       30
     ]);
   });
-  it('should generate avater with base image(query)', async () => {
-    const res = generateAvater(
-      'https://hankei6km.github.io/avater.png',
+  it('should generate avatar with base image(query)', async () => {
+    const res = generateAvatar(
+      'https://hankei6km.github.io/avatar.png',
       'base',
-      { avater: { query: 'w=100' } }
+      { avatar: { query: 'w=100' } }
     );
     expect(await res).toEqual('check');
     const { mockLoadImage } = require('canvas')._getMocks();
     expect(mockLoadImage.mock.calls[0][0]).toEqual(
-      'https://hankei6km.github.io/avater.png?w=100'
+      'https://hankei6km.github.io/avatar.png?w=100'
     );
   });
-  it('should save avater to jpeg format', async () => {
-    const res = generateAvater(
-      'https://hankei6km.github.io/avater.png',
+  it('should save avatar to jpeg format', async () => {
+    const res = generateAvatar(
+      'https://hankei6km.github.io/avatar.png',
       'base',
       {
         format: { type: 'jpeg', quality: 0.5 }
@@ -321,7 +321,7 @@ describe('generateAvater()', () => {
     const { mockLoadImage } = require('canvas')._getMocks();
     mockLoadImage.mockReset();
     mockLoadImage.mockRejectedValueOnce('load image failed');
-    const res = generateAvater('avater', 'base', { avater: { fit: 0 } });
+    const res = generateAvatar('avatar', 'base', { avatar: { fit: 0 } });
     expect(await res).toEqual('');
   });
   it('should skip base image at loadImage failed', async () => {
@@ -335,7 +335,7 @@ describe('generateAvater()', () => {
         height: 100
       })
       .mockRejectedValueOnce('load image failed');
-    const res = generateAvater('avater', 'base', { avater: { fit: 0 } });
+    const res = generateAvatar('avatar', 'base', { avatar: { fit: 0 } });
     expect(await res).toEqual('check');
     expect(mockConsoleError.mock.calls.length).toEqual(1);
     expect(mockConsoleError.mock.calls[0][0]).toEqual(

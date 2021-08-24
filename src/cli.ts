@@ -1,7 +1,7 @@
 import { Readable, Writable } from 'stream';
 import fromMarkdown from 'mdast-util-from-markdown';
 import toMarkdown from 'mdast-util-to-markdown';
-import { toImageDataURL } from './avater';
+import { toImageDataURL } from './avatar';
 var syntax = require('micromark-extension-frontmatter');
 var frontmatter = require('mdast-util-frontmatter');
 

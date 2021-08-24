@@ -1,12 +1,12 @@
 import fromMarkdown from 'mdast-util-from-markdown';
 import toMarkdown from 'mdast-util-to-markdown';
-import { addRemoveIdxs, toImageDataURL } from './avater';
+import { addRemoveIdxs, toImageDataURL } from './avatar';
 
 jest.mock('./lib/generate', () => {
-  const mockGenerateAvater = jest.fn();
+  const mockGenerateAvatar = jest.fn();
   const reset = () => {
-    mockGenerateAvater.mockReset();
-    mockGenerateAvater.mockImplementation(
+    mockGenerateAvatar.mockReset();
+    mockGenerateAvatar.mockImplementation(
       async (data: string): Promise<string> => {
         return await jest.fn().mockResolvedValue(`data:${data}`)();
       }
@@ -14,10 +14,10 @@ jest.mock('./lib/generate', () => {
   };
   reset();
   return {
-    generateAvater: mockGenerateAvater,
+    generateAvatar: mockGenerateAvatar,
     _reset: reset,
     _getMocks: () => ({
-      mockGenerateAvater
+      mockGenerateAvatar
     })
   };
 });
@@ -38,18 +38,18 @@ describe('addRemoveIdxs()', () => {
 });
 
 describe('toDataURL()', () => {
-  it('should convert "avater:" in alt to DataURL', async () => {
+  it('should convert "avatrr:" in alt to DataURL', async () => {
     const tree = fromMarkdown(
-      '# title\n\n![avater:alt](data:image/png;base64,iVBOR)\ntext'
+      '# title\n\n![avatar:alt](data:image/png;base64,iVBOR)\ntext'
     );
     await toImageDataURL(tree);
     expect(toMarkdown(tree)).toEqual(
       '# title\n\n![alt](data:data:image/png;base64,iVBOR)\ntext\n'
     );
   });
-  it('should convert "avater:" in url to DataURL', async () => {
+  it('should convert "avatar:" in url to DataURL', async () => {
     const tree = fromMarkdown(
-      '# title\n\n![alt](avater:data:image/png;base64,iVBOR)\ntext'
+      '# title\n\n![alt](avatar:data:image/png;base64,iVBOR)\ntext'
     );
     await toImageDataURL(tree);
     expect(toMarkdown(tree)).toEqual(
@@ -65,61 +65,61 @@ describe('toDataURL()', () => {
       '# title\n\n![alt](data:https://hankei6km.github.io/logo.png)\ntext\n'
     );
   });
-  it('should convert "avater:" in alt to DataURL with base image', async () => {
+  it('should convert "avatar:" in alt to DataURL with base image', async () => {
     const tree = fromMarkdown(
-      '# title\n\n![avater:alt](data:image/png;base64,iVBOR)![base img](https://hankei6km.github.io/base.png)\ntext'
+      '# title\n\n![avatar:alt](data:image/png;base64,iVBOR)![base img](https://hankei6km.github.io/base.png)\ntext'
     );
     await toImageDataURL(tree);
     expect(toMarkdown(tree)).toEqual(
       '# title\n\n![base img](data:data:image/png;base64,iVBOR)\ntext\n'
     );
   });
-  it('should convert "avater:" in alt to DataURL with base image(link)', async () => {
+  it('should convert "avatar:" in alt to DataURL with base image(link)', async () => {
     const tree = fromMarkdown(
-      '# title\n\n![avater:alt](data:image/png;base64,iVBOR)[![base img](https://hankei6km.github.io/base.png)](/foo)\ntext'
+      '# title\n\n![avatar:alt](data:image/png;base64,iVBOR)[![base img](https://hankei6km.github.io/base.png)](/foo)\ntext'
     );
     await toImageDataURL(tree);
     expect(toMarkdown(tree)).toEqual(
       '# title\n\n[![base img](data:data:image/png;base64,iVBOR)](/foo)\ntext\n'
     );
   });
-  it('should convert "avater:" in alt to DataURL with base image(break)', async () => {
+  it('should convert "avatar:" in alt to DataURL with base image(break)', async () => {
     const tree = fromMarkdown(
-      '# title\n\n![avater:alt](data:image/png;base64,iVBOR)\n![base img](https://hankei6km.github.io/base.png)\ntext'
+      '# title\n\n![avatar:alt](data:image/png;base64,iVBOR)\n![base img](https://hankei6km.github.io/base.png)\ntext'
     );
     await toImageDataURL(tree);
     expect(toMarkdown(tree)).toEqual(
       '# title\n\n![base img](data:data:image/png;base64,iVBOR)\ntext\n'
     );
   });
-  it('should not convert "avater:" in alt if avater image load failed', async () => {
-    const { mockGenerateAvater } = require('./lib/generate')._getMocks();
-    mockGenerateAvater.mockReset();
-    mockGenerateAvater.mockResolvedValue('');
+  it('should not convert "avatar:" in alt if avatar image load failed', async () => {
+    const { mockGenerateAvatar } = require('./lib/generate')._getMocks();
+    mockGenerateAvatar.mockReset();
+    mockGenerateAvatar.mockResolvedValue('');
     const tree = fromMarkdown(
-      '# title\n\n![avater:alt](data:image/png;base64,iVBOR)![base img](https://hankei6km.github.io/base.png)\ntext'
+      '# title\n\n![avatar:alt](data:image/png;base64,iVBOR)![base img](https://hankei6km.github.io/base.png)\ntext'
     );
     await toImageDataURL(tree);
     expect(toMarkdown(tree)).toEqual(
-      '# title\n\n![avater:alt](data:image/png;base64,iVBOR)![base img](https://hankei6km.github.io/base.png)\ntext\n'
+      '# title\n\n![avatar:alt](data:image/png;base64,iVBOR)![base img](https://hankei6km.github.io/base.png)\ntext\n'
     );
   });
-  it('should not convert "avater:" in url if avater image load failed', async () => {
-    const { mockGenerateAvater } = require('./lib/generate')._getMocks();
-    mockGenerateAvater.mockReset();
-    mockGenerateAvater.mockResolvedValue('');
+  it('should not convert "avatar:" in url if avatar image load failed', async () => {
+    const { mockGenerateAvatar } = require('./lib/generate')._getMocks();
+    mockGenerateAvatar.mockReset();
+    mockGenerateAvatar.mockResolvedValue('');
     const tree = fromMarkdown(
-      '# title\n\n![alt](avater:data:image/png;base64,iVBOR)\ntext'
+      '# title\n\n![alt](avatar:data:image/png;base64,iVBOR)\ntext'
     );
     await toImageDataURL(tree);
     expect(toMarkdown(tree)).toEqual(
-      '# title\n\n![alt](avater:data:image/png;base64,iVBOR)\ntext\n'
+      '# title\n\n![alt](avatar:data:image/png;base64,iVBOR)\ntext\n'
     );
   });
-  it('should not convert "markerFile" in url if avater image load failed', async () => {
-    const { mockGenerateAvater } = require('./lib/generate')._getMocks();
-    mockGenerateAvater.mockReset();
-    mockGenerateAvater.mockResolvedValue('');
+  it('should not convert "markerFile" in url if avatar image load failed', async () => {
+    const { mockGenerateAvatar } = require('./lib/generate')._getMocks();
+    mockGenerateAvatar.mockReset();
+    mockGenerateAvatar.mockResolvedValue('');
     const tree = fromMarkdown(
       '# title\n\n![alt](data:https://hankei6km.github.io/logo.png)\ntext'
     );
