@@ -29,9 +29,16 @@ export type MdAvatarOptions = {
     type?: 'png' | 'jpeg';
     quality?: number;
   };
+  base?: {
+    query?: string;
+  };
 };
 export const mdAvatarOptionsDefaults: Required<MdAvatarOptions> & {
   avatar: Required<MdAvatarOptions['avatar']>;
+} & {
+  format: Required<MdAvatarOptions['format']>;
+} & {
+  base: Required<MdAvatarOptions['base']>;
 } = {
   avatar: {
     position: 'center',
@@ -45,6 +52,9 @@ export const mdAvatarOptionsDefaults: Required<MdAvatarOptions> & {
   format: {
     type: 'png',
     quality: 0.92
+  },
+  base: {
+    query: ''
   }
 };
 

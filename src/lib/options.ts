@@ -24,7 +24,7 @@ const optionsDecoderAvatar = [
   },
   {
     name: 'query',
-    decoder: /(^|.+-)avatar_query-(.+)$/
+    decoder: /(^|.+-)avatar_query-([^.]+)(\.|$)/
   }
 ];
 const optionsDecoderFormat = [
@@ -34,6 +34,12 @@ const optionsDecoderFormat = [
   },
   { name: 'quality', decoder: /(^|.+-)format_quality-(\d+)(-|$)/ }
 ];
+const optionsDecoderBase = [
+  {
+    name: 'query',
+    decoder: /(^|.+-)base_query-([^.]+)(\.|$)/
+  }
+];
 
 export function decodeOptions(
   mdqrOptions: MdAvatarOptions,
@@ -41,9 +47,10 @@ export function decodeOptions(
 ): MdAvatarOptions {
   const retMdqrOptions: any = JSON.parse(
     JSON.stringify(
-      Object.assign({ avatar: {}, format: {} }, mdqrOptions) || {
+      Object.assign({ avatar: {}, format: {}, base: {} }, mdqrOptions) || {
         avatar: {},
-        format: {}
+        format: {},
+        base: {}
       }
     )
   );
@@ -73,6 +80,14 @@ export function decodeOptions(
           out.format[o.name] = m[2];
         } else if (o.name === 'quality') {
           out.format[o.name] = parseInt(m[2], 10) / 100;
+        }
+      }
+    });
+    optionsDecoderBase.forEach((o) => {
+      const m = src.match(o.decoder);
+      if (m) {
+        if (o.name === 'query') {
+          out.base[o.name] = decodeURIComponent(m[2]);
         }
       }
     });
