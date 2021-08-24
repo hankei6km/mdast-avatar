@@ -54,7 +54,7 @@ source:
 
 ```markdown
 ![avater:](https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)
-![Base image](https://images.microcms-assets.io/assets/bc4007b30bdf402f96161596bd7cbcca/2ca9d04e541745ad97b0fcdce2a92764/sample04.jpg?auto=compress%2Cenhance&fit64=Y3JvcA&h64=MTgw&w64=MzIw)
+![Base image](https://github.com/hankei6km/mdast-avater/raw/main/example/example-base.jpg)
 ```
 
 yield:
