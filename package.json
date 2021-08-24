@@ -1,5 +1,5 @@
 {
-  "name": "mdast-avetar",
+  "name": "mdast-avatar",
   "version": "0.1.0-1",
   "description": "embed avatar image into mdast",
   "license": "MIT",
