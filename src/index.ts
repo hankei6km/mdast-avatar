@@ -1,2 +1,2 @@
-import countChars from './count';
-export { countChars };
+import { toImageDataURL } from './avater';
+export { toImageDataURL };
