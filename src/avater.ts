@@ -48,7 +48,10 @@ export const mdAvaterOptionsDefaults: Required<MdAvaterOptions> & {
   }
 };
 
-export async function byImageAlt(tree: Content[], options?: MdAvaterOptions) {
+export async function byImageAlt(
+  tree: Content[],
+  options?: MdAvaterOptions
+): Promise<boolean> {
   const image = tree[0] as Image;
   const url: string = image.url || '';
   const alt: string = stripMakerProtocol(image.alt || '');
@@ -59,18 +62,22 @@ export async function byImageAlt(tree: Content[], options?: MdAvaterOptions) {
     base,
     decodeOptions(options || { avater: {} }, [alt])
   );
-  if (base) {
-    updateImageUrl(tree[1], d);
-  } else {
-    image.alt = alt;
-    image.url = d;
+  if (d) {
+    if (base) {
+      updateImageUrl(tree[1], d);
+    } else {
+      image.alt = alt;
+      image.url = d;
+    }
+    return true;
   }
+  return false;
 }
 
 export async function byImageScheme(
   tree: Content[],
   options?: MdAvaterOptions
-) {
+): Promise<boolean> {
   const image = tree[0] as Image;
   const url: string = image.url || '';
   const alt: string = image.alt || '';
@@ -82,14 +89,21 @@ export async function byImageScheme(
     base,
     decodeOptions(options || { avater: {} }, [alt])
   );
-  if (base) {
-    updateImageUrl(tree[1], d);
-  } else {
-    image.url = d;
+  if (d) {
+    if (base) {
+      updateImageUrl(tree[1], d);
+    } else {
+      image.url = d;
+    }
+    return true;
   }
+  return false;
 }
 
-export async function byImageFile(tree: Content[], options?: MdAvaterOptions) {
+export async function byImageFile(
+  tree: Content[],
+  options?: MdAvaterOptions
+): Promise<boolean> {
   const image = tree[0] as Image;
   const url: string = image.url || '';
   const alt: string = image.alt || '';
@@ -100,12 +114,17 @@ export async function byImageFile(tree: Content[], options?: MdAvaterOptions) {
     base,
     decodeOptions(options || { avater: {} }, [fileName, alt])
   );
-  if (base) {
-    updateImageUrl(tree[1], d);
-  } else {
-    image.url = d;
+  if (d) {
+    if (base) {
+      updateImageUrl(tree[1], d);
+    } else {
+      image.url = d;
+    }
+    return true;
   }
+  return false;
 }
+
 export function addRemoveIdxs(r: number[], a: number[]) {
   a.forEach((i) => {
     if (!r.includes(i)) {
@@ -130,14 +149,26 @@ export async function toImageDataURL(
           const targetInfo = selectTarget(c.children, ii);
 
           if (targetInfo.kind === 'image-alt') {
-            await byImageAlt(targetInfo.avaterContent, options);
-            addRemoveIdxs(removeIdxs, targetInfo.removeIdxs);
+            const updated = await byImageAlt(targetInfo.avaterContent, options);
+            if (updated) {
+              addRemoveIdxs(removeIdxs, targetInfo.removeIdxs);
+            }
           } else if (targetInfo.kind === 'image-scheme') {
-            await byImageScheme(targetInfo.avaterContent, options);
-            addRemoveIdxs(removeIdxs, targetInfo.removeIdxs);
+            const updated = await byImageScheme(
+              targetInfo.avaterContent,
+              options
+            );
+            if (updated) {
+              addRemoveIdxs(removeIdxs, targetInfo.removeIdxs);
+            }
           } else if (targetInfo.kind === 'image-file') {
-            await byImageFile(targetInfo.avaterContent, options);
-            addRemoveIdxs(removeIdxs, targetInfo.removeIdxs);
+            const updated = await byImageFile(
+              targetInfo.avaterContent,
+              options
+            );
+            if (updated) {
+              addRemoveIdxs(removeIdxs, targetInfo.removeIdxs);
+            }
           }
         }
         if (removeIdxs.length > 0) {

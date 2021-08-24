@@ -315,6 +315,15 @@ describe('generateAvater()', () => {
     const { mockCanvasToDataURL } = require('canvas')._getMocks();
     expect(mockCanvasToDataURL.mock.calls[0]).toEqual(['image/jpeg', 0.5]);
   });
+  it('should return blank at loadImage failed', async () => {
+    const mockConsoleError = jest.fn();
+    console.error = mockConsoleError;
+    const { mockLoadImage } = require('canvas')._getMocks();
+    mockLoadImage.mockReset();
+    mockLoadImage.mockRejectedValueOnce('load image failed');
+    const res = generateAvater('avater', 'base', { avater: { fit: 0 } });
+    expect(await res).toEqual('');
+  });
   it('should skip base image at loadImage failed', async () => {
     const mockConsoleError = jest.fn();
     console.error = mockConsoleError;
