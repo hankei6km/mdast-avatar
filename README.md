@@ -123,12 +123,14 @@ avatar options:
 - margin: `-avatar_margin-<number>`
 - paddinfg: `-avatar_padding-<number>`
 - fit: `-avatar_fit-<number>`
-- query: `-avatar_query-<string>` (オプション文字列全体の末尾に指定)
+- query: `-avatar_query-<string>` ("." で区切られる、またはオプション文字列の末尾に配置)
 
 format options:
 - type: `-format_type-<png | jpeg>`
 - quality: `-format_quality-<number>` (単位は `%`)
 
+base options:n
+- query: `-base_query-<string>` ("." で区切られる、またはオプション文字列の末尾に配置)
 
 ## API
 
@@ -193,6 +195,7 @@ default: `35`
 type:`<string>`
 
 アバター画像の URL に付加される文字列。
+imgix の Rendering API を base64 variants で利用することを想定。
 
 #### `format`
 
@@ -210,6 +213,12 @@ type: `number`
 
 default: `0.92`
 
+#### `base``
+
+Base image 用のオプション。
+
+Base image の URL に付加される文字列。
+imgix の Rendering API を base64 variants で利用することを想定。
 
 #### returns
 
