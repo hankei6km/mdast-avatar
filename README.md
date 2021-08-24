@@ -213,7 +213,7 @@ type: `number`
 
 default: `0.92`
 
-#### `base``
+#### `base`
 
 Base image 用のオプション。
 
