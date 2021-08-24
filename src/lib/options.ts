@@ -24,7 +24,7 @@ const optionsDecoderAvatar = [
   },
   {
     name: 'query',
-    decoder: /(^|.+-)avatar_query-(.+)$/
+    decoder: /(^|.+-)avatar_query-([^.]+)(\.|$)/
   }
 ];
 const optionsDecoderFormat = [
@@ -37,7 +37,7 @@ const optionsDecoderFormat = [
 const optionsDecoderBase = [
   {
     name: 'query',
-    decoder: /(^|.+-)base_query-(.+)$/
+    decoder: /(^|.+-)base_query-([^.]+)(\.|$)/
   }
 ];
 

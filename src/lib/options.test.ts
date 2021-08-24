@@ -47,6 +47,20 @@ describe('decodeOptions()', () => {
       decodeOptions({}, ['mdast-base_query-w%3D100%26text%3Dabc-123', '', ''])
     ).toEqual(assign({ base: { query: 'w=100&text=abc-123' } }));
   });
+  it('should terminate query by "."', () => {
+    expect(
+      decodeOptions({}, [
+        'mdast-avatar_query-w=100&text=abc-123.-avatar_padding-3-base_query-w=200&text=abc-456.-avatar_margin-4',
+        '',
+        ''
+      ])
+    ).toEqual(
+      assign({
+        avatar: { padding: 3, margin: 4, query: 'w=100&text=abc-123' },
+        base: { query: 'w=200&text=abc-456' }
+      })
+    );
+  });
   it('should decode from multiple sources', () => {
     expect(
       decodeOptions({}, [
