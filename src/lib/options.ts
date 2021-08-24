@@ -1,30 +1,30 @@
-import { MdAvaterOptions } from '../avater';
+import { MdAvatarOptions } from '../avatar';
 
-const optionsDecoderAvater = [
+const optionsDecoderAvatar = [
   {
     name: 'position',
-    decoder: /(^|.+-)avater_position-(center|right-bottom)(-|$)/
+    decoder: /(^|.+-)avatar_position-(center|right-bottom)(-|$)/
   },
-  { name: 'fillstyle', decoder: /(^|.+-)avater_fillstyle-([0-9A-Fa-f]+)(-|$)/ },
+  { name: 'fillstyle', decoder: /(^|.+-)avatar_fillstyle-([0-9A-Fa-f]+)(-|$)/ },
   {
     name: 'fillshape',
-    decoder: /(^|.+-)avater_fillshape-(rect|circle)(-|$)/
+    decoder: /(^|.+-)avatar_fillshape-(rect|circle)(-|$)/
   },
   {
     name: 'margin',
-    decoder: /(^|.+-)avater_margin-(\d+)(-|$)/
+    decoder: /(^|.+-)avatar_margin-(\d+)(-|$)/
   },
   {
     name: 'padding',
-    decoder: /(^|.+-)avater_padding-(\d+)(-|$)/
+    decoder: /(^|.+-)avatar_padding-(\d+)(-|$)/
   },
   {
     name: 'fit',
-    decoder: /(^|.+-)avater_fit-(\d+)(-|$)/
+    decoder: /(^|.+-)avatar_fit-(\d+)(-|$)/
   },
   {
     name: 'query',
-    decoder: /(^|.+-)avater_query-(.+)$/
+    decoder: /(^|.+-)avatar_query-(.+)$/
   }
 ];
 const optionsDecoderFormat = [
@@ -36,13 +36,13 @@ const optionsDecoderFormat = [
 ];
 
 export function decodeOptions(
-  mdqrOptions: MdAvaterOptions,
+  mdqrOptions: MdAvatarOptions,
   sources: string[]
-): MdAvaterOptions {
+): MdAvatarOptions {
   const retMdqrOptions: any = JSON.parse(
     JSON.stringify(
-      Object.assign({ avater: {}, format: {} }, mdqrOptions) || {
-        avater: {},
+      Object.assign({ avatar: {}, format: {} }, mdqrOptions) || {
+        avatar: {},
         format: {}
       }
     )
@@ -50,18 +50,18 @@ export function decodeOptions(
   //  fileName と alt からでコードするので関数化してある.
   // TODO: ユーティリティ化などを検討.
   const decodeMdqrOptions = (out: any, src: string) => {
-    optionsDecoderAvater.forEach((o) => {
+    optionsDecoderAvatar.forEach((o) => {
       const m = src.match(o.decoder);
       if (m) {
         // TODO: decoder 側で代入用の関数を指定できるように.
         if (o.name === 'position' || o.name === 'fillshape') {
-          out.avater[o.name] = m[2];
+          out.avatar[o.name] = m[2];
         } else if (o.name === 'query') {
-          out.avater[o.name] = decodeURIComponent(m[2]);
+          out.avatar[o.name] = decodeURIComponent(m[2]);
         } else if (o.name === 'fillstyle') {
-          out.avater[o.name] = `#${m[2]}`;
+          out.avatar[o.name] = `#${m[2]}`;
         } else {
-          out.avater[o.name] = parseInt(m[2], 10);
+          out.avatar[o.name] = parseInt(m[2], 10);
         }
       }
     });

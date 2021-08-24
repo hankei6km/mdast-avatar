@@ -6,12 +6,12 @@ import cli from './cli';
 
 (async () => {
   const argv = await yargs(hideBin(process.argv))
-    .scriptName('mdavater')
+    .scriptName('mdavatar')
     .usage('$0 [options] --')
     .alias('h', 'help')
     .example(
       'cat foo.md | $0 -- > bar.md',
-      'convert "avater:" contained image of markdown to DataURL'
+      'convert "avatar:" contained image to DataURL in markdown'
     )
     .config('settings', function (configPath) {
       return JSON.parse(fs.readFileSync(configPath, 'utf-8'));

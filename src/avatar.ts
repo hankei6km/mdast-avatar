@@ -1,5 +1,5 @@
 import { Root, Content, Image } from 'mdast';
-import { generateAvater } from './lib/generate';
+import { generateAvatar } from './lib/generate';
 import { decodeOptions } from './lib/options';
 import { selectTarget } from './lib/select';
 import {
@@ -8,15 +8,15 @@ import {
   updateImageUrl
 } from './lib/util';
 
-const AvaterSourcKindValues = [
+const AvatarSourcKindValues = [
   '',
   'image-alt',
   'image-scheme',
   'image-file'
 ] as const;
-export type AvaterSourcKind = typeof AvaterSourcKindValues[number];
-export type MdAvaterOptions = {
-  avater?: {
+export type AvatarSourcKind = typeof AvatarSourcKindValues[number];
+export type MdAvatarOptions = {
+  avatar?: {
     position?: 'center' | 'right-bottom';
     fillstyle?: string;
     fillshape?: 'rect' | 'circle';
@@ -30,10 +30,10 @@ export type MdAvaterOptions = {
     quality?: number;
   };
 };
-export const mdAvaterOptionsDefaults: Required<MdAvaterOptions> & {
-  avater: Required<MdAvaterOptions['avater']>;
+export const mdAvatarOptionsDefaults: Required<MdAvatarOptions> & {
+  avatar: Required<MdAvatarOptions['avatar']>;
 } = {
-  avater: {
+  avatar: {
     position: 'center',
     fillshape: 'circle',
     fillstyle: '#FFFFFFFF',
@@ -50,17 +50,17 @@ export const mdAvaterOptionsDefaults: Required<MdAvaterOptions> & {
 
 export async function byImageAlt(
   tree: Content[],
-  options?: MdAvaterOptions
+  options?: MdAvatarOptions
 ): Promise<boolean> {
   const image = tree[0] as Image;
   const url: string = image.url || '';
   const alt: string = stripMakerProtocol(image.alt || '');
   // as scheme
   const base = tree.length > 1 ? (tree[1] as Image).url || '' : '';
-  const d = await generateAvater(
+  const d = await generateAvatar(
     url,
     base,
-    decodeOptions(options || { avater: {} }, [alt])
+    decodeOptions(options || { avatar: {} }, [alt])
   );
   if (d) {
     if (base) {
@@ -76,7 +76,7 @@ export async function byImageAlt(
 
 export async function byImageScheme(
   tree: Content[],
-  options?: MdAvaterOptions
+  options?: MdAvatarOptions
 ): Promise<boolean> {
   const image = tree[0] as Image;
   const url: string = image.url || '';
@@ -84,10 +84,10 @@ export async function byImageScheme(
   // as scheme
   const text = stripMakerProtocol(url);
   const base = tree.length > 1 ? (tree[1] as Image).url || '' : '';
-  const d = await generateAvater(
+  const d = await generateAvatar(
     text,
     base,
-    decodeOptions(options || { avater: {} }, [alt])
+    decodeOptions(options || { avatar: {} }, [alt])
   );
   if (d) {
     if (base) {
@@ -102,17 +102,17 @@ export async function byImageScheme(
 
 export async function byImageFile(
   tree: Content[],
-  options?: MdAvaterOptions
+  options?: MdAvatarOptions
 ): Promise<boolean> {
   const image = tree[0] as Image;
   const url: string = image.url || '';
   const alt: string = image.alt || '';
   const fileName = getFileNameFromURL(image.url);
   const base = tree.length > 1 ? (tree[1] as Image).url || '' : '';
-  const d = await generateAvater(
+  const d = await generateAvatar(
     url,
     base,
-    decodeOptions(options || { avater: {} }, [fileName, alt])
+    decodeOptions(options || { avatar: {} }, [fileName, alt])
   );
   if (d) {
     if (base) {
@@ -135,7 +135,7 @@ export function addRemoveIdxs(r: number[], a: number[]) {
 
 export async function toImageDataURL(
   tree: Root,
-  options: MdAvaterOptions = { avater: {}, format: {} }
+  options: MdAvatarOptions = { avatar: {}, format: {} }
 ): Promise<Root> {
   if (tree.type === 'root') {
     const l = tree.children.length;
@@ -149,13 +149,13 @@ export async function toImageDataURL(
           const targetInfo = selectTarget(c.children, ii);
 
           if (targetInfo.kind === 'image-alt') {
-            const updated = await byImageAlt(targetInfo.avaterContent, options);
+            const updated = await byImageAlt(targetInfo.avatarContent, options);
             if (updated) {
               addRemoveIdxs(removeIdxs, targetInfo.removeIdxs);
             }
           } else if (targetInfo.kind === 'image-scheme') {
             const updated = await byImageScheme(
-              targetInfo.avaterContent,
+              targetInfo.avatarContent,
               options
             );
             if (updated) {
@@ -163,7 +163,7 @@ export async function toImageDataURL(
             }
           } else if (targetInfo.kind === 'image-file') {
             const updated = await byImageFile(
-              targetInfo.avaterContent,
+              targetInfo.avatarContent,
               options
             );
             if (updated) {

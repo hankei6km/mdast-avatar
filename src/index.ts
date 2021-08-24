@@ -1,2 +1,2 @@
-import { toImageDataURL } from './avater';
+import { toImageDataURL } from './avatar';
 export { toImageDataURL };

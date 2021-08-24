@@ -1,12 +1,12 @@
 import * as path from 'path';
 import { Content } from 'mdast';
 
-export const makerProtocol = 'avater:';
-export const makerFile = 'mdast-avater';
+export const makerProtocol = 'avatar:';
+export const makerFile = 'mdast-avatar';
 
 export function stripMakerProtocol(s: string): string {
   if (s.startsWith(makerProtocol)) {
-    return s.slice(7); // 'avater:'.length = 7
+    return s.slice(7); // 'avatar:'.length = 7
   }
   return s;
 }
