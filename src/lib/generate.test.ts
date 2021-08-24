@@ -291,7 +291,7 @@ describe('generateAvatar()', () => {
       30
     ]);
   });
-  it('should generate avatar with base image(query)', async () => {
+  it('should generate avatar with base image(avatar query)', async () => {
     const res = generateAvatar(
       'https://hankei6km.github.io/avatar.png',
       'base',
@@ -301,6 +301,18 @@ describe('generateAvatar()', () => {
     const { mockLoadImage } = require('canvas')._getMocks();
     expect(mockLoadImage.mock.calls[0][0]).toEqual(
       'https://hankei6km.github.io/avatar.png?w=100'
+    );
+  });
+  it('should generate avatar with base image(base query)', async () => {
+    const res = generateAvatar(
+      'avatar',
+      'https://hankei6km.github.io/base.png',
+      { base: { query: 'w=100' } }
+    );
+    expect(await res).toEqual('check');
+    const { mockLoadImage } = require('canvas')._getMocks();
+    expect(mockLoadImage.mock.calls[1][0]).toEqual(
+      'https://hankei6km.github.io/base.png?w=100'
     );
   });
   it('should save avatar to jpeg format', async () => {

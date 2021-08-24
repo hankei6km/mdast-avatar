@@ -7,7 +7,10 @@ export async function generateAvatar(
   base?: string,
   inMdqrOptions: MdAvatarOptions = {}
 ) {
-  const mdqrOptions = Object.assign({ avatar: {}, format: {} }, inMdqrOptions);
+  const mdqrOptions = Object.assign(
+    { avatar: {}, format: {}, base: {} },
+    inMdqrOptions
+  );
   const avatarQuery =
     mdqrOptions.avatar.query !== undefined
       ? mdqrOptions.avatar.query
@@ -19,8 +22,12 @@ export async function generateAvatar(
     }
   );
   if (avatarImg) {
+    const baseQuery =
+      mdqrOptions.base.query !== undefined
+        ? mdqrOptions.base.query
+        : mdAvatarOptionsDefaults.base.query;
     const baseImg = base
-      ? await loadImage(base).catch((err) => {
+      ? await loadImage(replaceQuery(base, baseQuery)).catch((err) => {
           // TODO: error 画像を表示させる.
           console.error(`base loadImage: ${err}`);
         })
