@@ -146,53 +146,51 @@ format options:
 
 アバターの直後に `image` または `link / image` がある場合、その `image` はロゴ画像として扱われる。
 
-#### Options
-
-##### avater
+#### `options.avater`
 
 主に base に avater を重ねるときのオプション。
 
-###### `position`
+##### `position`
 
- `center` | `right-bottom`  
+type: `center` | `right-bottom`  
 
 deault: `center`
 
-###### `fillstyle`
+##### `fillstyle`
 
- `#RRGGBBAA`
+type: `#RRGGBBAA`
 
 deault: `#FFFFFFFF`
 
-###### `fillshape`
+##### `fillshape`
 
- `circle` | `rect`
+type: `circle` | `rect`
 
 deault: `circle`
 
-###### `margin`
+##### `margin`
 
- `<number>`
+type: `<number>`
 
 default: `55`
 
-###### `padding`
+##### `padding`
 
- `<number>`
+type: `<number>`
 
 default: `4`
 
-###### `fit`
+##### `fit`
 
-`<number>`
+type:`<number>`
 
 base の幅に対する比率(単位は `%`)。 `0` を渡すと無効化。
 
 default: `35`
 
-###### `query`
+##### `query`
 
-`<string>`
+type:`<string>`
 
 アバター画像の URL に付加される文字列。
 
@@ -202,13 +200,13 @@ default: `35`
 
 ##### `type`
  
-  `png` | `jpeg`
+type: `png` | `jpeg`
 
 default: `png`
 
 ##### `quality`
  
-  `number`
+type: `number`
 
 default: `0.92`
 
