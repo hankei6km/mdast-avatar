@@ -1,101 +1,243 @@
-# my-starter-ts-npm-cli-and-lib
+# mdast-avater
 
-TypeScript で npm 用の CLI とライブラリのパッケージを作成するスターター。
-CodeSandbox 上でコードを編集し、GitHub Actions から  GitHub Packages および npm レジストリーへ publish することを想定している。
+[mdast](https://github.com/syntax-tree/mdast) に含まれる画像をアバターとして Markdown へ埋め込む。
 
-## 利用方法
+## Install
 
-このリポジトリをテンプレートとして新しいリポジトリを作成する。
+npm:
 
-1. `$ gh repo create <name> --template https://github.com/hankei6km/my-starter-ts-npm-cli-and-lib` で作成
-1. `package.json` と `LICENSE` 等を新しいパッケージにあわせて変更(付録にテンプレート)
-1. `$ npm run upgrade-interactive` 等でパッケージを更新
+```
+npm install mdast-qrcode
+```
 
-作成したリポジトリを CodeSandbox でインポートすると terminal(「yarn start」タブ) 内で `start` スクリプトが実行される(通常はエラーとなる)。後は必要に応じてコードの編集等を行う。
+## Usage
 
-テストの実行は CodeSandbox 上では `npm run csb:test` を利用する。コマンドとしての実行を試す場合は `npm run start -- foo.txt` のように実行する。
+### 画像の URL に `avater:`
 
-### CLI 部分の変更
+code:
 
-- コマンド名(スクリプト名)を変更: `package.json` の `bin` と`src/main.ts` の `scriptName` を変更。
-- コマンドのフラグ等を変更: `src/main.ts` を編集。
-- コマンドの処理を変更: `src/cli.ts` を編集。
+```typescript
+import fromMarkdown from 'mdast-util-from-markdown';
+import toMarkdown from 'mdast-util-to-markdown';
+import { toImageDataURL } from './avater';
 
-### ライブラリー部分の変更
+(async () => {
+  const tree = fromMarkdown('# title\n\n![My avater](avater:https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)\ntext');
+  await toImageDataURL(tree);
+  console.log(toMarkdown(tree));
+})();
+```
 
-`src/count.ts` `src/count.test.ts` `test/*` を削除し、ライブラリのコードを記述。エクスポートしたい項目を `src/index.ts` へ記述。
+yield:
 
-### npm publish
+```markdown
+# title
 
-以下の設定後に GitHub で Release を Publish すると Relase の種類により GitHub Pages または npm レジストリーへ `npm publish` される。
+![My avater](data:image/png;base64, ...snip ...=)
+text
+```
 
-- Pre Release: GitHub Pages のみに publish される
-- Release: GitHub Pages および npm レジストリーへ publish される
+### 画像の alt に `avater:`
 
-なお、`prepublishOnly` 等は定義されていないので、手動で `npm publish` を実行してもビルドはされないので注意。
+code:
 
-#### 設定
+```typescript
+import fromMarkdown from 'mdast-util-from-markdown';
+import toMarkdown from 'mdast-util-to-markdown';
+import { toImageDataURL } from './avater';
 
-1. GitHub 上でリポジトリの "Settings / Environment" から `npm_pkg` および `gh_pkg` を作成
-1. `npm_pkg` の secrets に `NPM_TOKEN` を追加(内容は npm レジストリの Access Token)
+(async () => {
+  const tree = fromMarkdown('# title\n\n![avater:My avater](https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)\ntext');
+  await toImageDataURL(tree);
+  console.log(toMarkdown(tree));
+})();
+```
 
-現状では、`gh_pkg` への設定変更は行わない。
+yield:
 
-#### GitHub Packages へ publish
+```markdown
+# title
 
-GitHub で Release を Publish すると `npm publish` される。このとき、scope はリポジトリの所有者(`$GITHUB_REPOSITORY` の所有者部分)へ置き換えられる。
+![My avater](data:image/png;base64, ...snip ...=)
+text
+```
+
+### Base Image に重ねる
+
+code:
+
+```typescript
+import fromMarkdown from 'mdast-util-from-markdown';
+import toMarkdown from 'mdast-util-to-markdown';
+import { toImageDataURL } from './qrcode';
+
+(async () => {
+  const tree = fromMarkdown(
+    '# title\n\![avater:](https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)\n![Base image](https://github.com/hankei6km/mdast-avater/raw/main/example/example-base.jpg)\ntext'
+  );
+  await toImageDataURL(tree);
+  console.log(toMarkdown(tree));
+})();
+```
+
+yield:
+
+```markdown
+# title
+
+![Base image](data:image/png;base64, ...snip ...=)
+text
+```
+
+### Options
+
+code:
+
+```typescript
+import fromMarkdown from 'mdast-util-from-markdown';
+import toMarkdown from 'mdast-util-to-markdown';
+import { toImageDataURL } from './qrcode';
+
+(async () => {
+  const tree = fromMarkdown(
+    '# title\n\![avater:avater_padding-2](https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)\n![Base image](https://github.com/hankei6km/mdast-avater/raw/main/example/example-base.jpg)\ntext'
+  );
+  await toImageDataURL(tree);
+  console.log(toMarkdown(tree));
+})();
+```
+
+yield:
+
+```markdown
+# title
+
+![Base image](data:image/png;base64, ...snip ...=)
+text
+```
+avater options:
+
+- position: `-avater_position-<center | right-bottom>`
+- fillstyle: `-avater_fillstyle-<<RRGGBBAA>>`
+- fillshape: `-avater_fillshape-<circle | rect>>`
+- margin: `-avater_margin-<number>`
+- paddinfg: `-avater_padding-<number>`
+- fit: `-avater_fit-<number>`
+- query: `-avater_query-<string>` (オプション文字列全体の末尾に指定)
+
+format options:
+- type: `-format_type-<png | jpeg>`
+- quality: `-format_quality-<number>` (単位は `%`)
+
+
+## API
+
+### `toImageDataURL(tree[, options])`
+
+[mdast](https://github.com/syntax-tree/mdast) に含まれる画像をアバターとして変換。
+
+変換対象となる画像。
+- `src` が `avater:` で始まる
+- `alt` が `avater:` で始まる
+- `src` のファイル名が `mdast-avater` で始まる
+- 画像 URL のプロトコルが `http:` `https:` `data:` 
+
+画像は `root / paragraph / image` 階層のみサポートしている。
+
+アバターの直後に `image` または `link / image` がある場合、その `image` はロゴ画像として扱われる。
+
+#### Options
+
+##### avater
+
+主に base に avater を重ねるときのオプション。
+
+###### `position`
+
+ `center` | `right-bottom`  
+
+deault: `center`
+
+###### `fillstyle`
+
+ `#RRGGBBAA`
+
+deault: `#FFFFFFFF`
+
+###### `fillshape`
+
+ `circle` | `rect`
+
+deault: `circle`
+
+###### `margin`
+
+ `<number>`
+
+default: `55`
+
+###### `padding`
+
+ `<number>`
+
+default: `4`
+
+###### `fit`
+
+`<number>`
+
+base の幅に対する比率(単位は `%`)。 `0` を渡すと無効化。
+
+default: `35`
+
+###### `query`
+
+`<string>`
+
+アバター画像の URL に付加される文字列。
+
+#### `format`
+
+生成された画像を DataURL でエンコードするときのオプション。
+
+##### `type`
+ 
+  `png` | `jpeg`
+
+default: `png`
+
+##### `quality`
+ 
+  `number`
+
+default: `0.92`
+
+
+#### returns
+
+`Promise<MdNode>`
+
+## CLI
 
 ```console
-$ npm version prerelease
-$ git push origin
-$ gh release create v0.1.2-5 -t 0.1.2-5 --target <branch>
+$ cat example/avater-deck.md  | mdavater > avater-embedded-deck.md
 ```
 
-#### npm レジストリーへ publish
+なお、出力される markdown 文字列はアバター画像の変換以外も to-markdown の変換に影響される。
 
-GitHub で Release を Publish すると `npm publish` される。ただし Pre Release のときは Publish されない。
+### JSON config file
 
-なお、`npm publish` に ` --access public` は指定されていないので、scope を利用する場合は注意。
-
-```console
-$ npm version patch
-$ git push origin
-$ gh release create v0.1.2 -t 0.1.2
+```json
+{
+  "toMarkdown": { "bullet": "-", "rule": "-" }
+}
 ```
 
-## 付録
+`toMarkdown.bullet` / `toMarkdown.rule` フィールドは [toMarkdown](https://github.com/syntax-tree/mdast-util-to-markdown#tomarkdowntree-options) へ渡される。
 
-`package.json` に記述する情報のテンプレート。`license` を変更したら `LICENSE` ファイルの変更も忘れずに。
-
-```
-  "name": "<package-name>",
-  "version": "0.1.0",
-  "description": "<description>",
-  "author": "user <mail addr> (website url)",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/<user>/<repository>.git"
-  },
-  "bugs": {
-    "url": "https://github.com/<user>/<repository>/issues"
-  },
-  "keywords": []
-```
-
-## 参考
-
-- [TypeScript で npm ライブラリ開発ことはじめ - Qiita](https://qiita.com/saltyshiomix/items/d889ba79978dadba63fd)
-- [TypeScript で CLI ツールを作って、npm パッケージにする - Qiita](https://qiita.com/suzuki_sh/items/f3349efbfe1bdfc0c634)
-- [yarn upgrade-interactive と同じように npm でも対話型な更新をしたい！ - Qiita](https://qiita.com/kotarella1110/items/08afeb61d493829711eb)
-- [Node.js パッケージの公開 - GitHub Docs](https://docs.github.com/ja/actions/guides/publishing-nodejs-packages)
-- [GitHub Actions で npm に自動でリリースする workflow を作ってみた | DevelopersIO](https://dev.classmethod.jp/articles/github-actions-npm-automatic-release/)
-
-## ライセンス
+## License
 
 MIT License
 
 Copyright (c) 2021 hankei6km
-
-
 
