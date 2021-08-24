@@ -1,10 +1,15 @@
 # Avater
 
+
 usage:
 
 ```console
 $ cat avater-deck.md | mdaveter > avater-embedded-deck.md
 ```
+
+## Plain
+
+![My avater](https://github.com/hankei6km/mdast-avater/raw/main/example/example-avater.png)
 
 ## Image url protocol
 
