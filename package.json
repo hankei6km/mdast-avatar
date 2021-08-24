@@ -1,6 +1,6 @@
 {
   "name": "mdast-avatar",
-  "version": "0.1.0-1",
+  "version": "0.1.0-2",
   "description": "embed avatar image into mdast",
   "license": "MIT",
   "author": "hankei6km <hankei6km@gmail.com> (https://github.com/hankei6km)",
