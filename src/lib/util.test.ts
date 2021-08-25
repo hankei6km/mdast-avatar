@@ -1,4 +1,10 @@
-import { getFileNameFromURL, replaceQuery, validImageURL } from './util';
+import {
+  getFileNameFromURL,
+  replaceQuery,
+  validImageURL,
+  baseImageUrl
+} from './util';
+import { Content} from 'mdast';
 
 describe('validImageURL()', () => {
   it('should return true', async () => {
@@ -86,5 +92,27 @@ describe('replaceQuery()', () => {
     expect(
       toMap(replaceQuery('data:image/png;base64,iVBORw0KGgoAAAANS', 'w=100'))
     ).toEqual(toMap('data:image/png;base64,iVBORw0KGgoAAAANS'));
+  });
+});
+
+describe('baseImageUrl()', () => {
+  it('should return url from "image"', () => {
+    expect(
+      baseImageUrl({ type: 'image', url: 'from image' } as Content)
+    ).toEqual('from image');
+  });
+  it('should return url from "link / image"', () => {
+    expect(
+      baseImageUrl({
+        type: 'link',
+        url: 'from link',
+        children: [
+          {
+            type: 'image',
+            url: 'from image'
+          }
+        ]
+      } as Content)
+    ).toEqual('from image');
   });
 });

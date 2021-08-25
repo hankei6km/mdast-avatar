@@ -69,6 +69,22 @@ yield:
 
 ---
 
+## Base image(link)
+
+source:
+
+```markdown
+![avatar:](https://github.com/hankei6km/mdast-avatar/raw/main/example/example-avatar.png)
+[![Base image](https://github.com/hankei6km/mdast-avatar/raw/main/example/example-base.jpg)](https://github.com/hankei6km/mdast-avatar)
+```
+
+yield:
+
+![avatar:](https://github.com/hankei6km/mdast-avatar/raw/main/example/example-avatar.png)
+[![Base image](https://github.com/hankei6km/mdast-avatar/raw/main/example/example-base.jpg)](https://github.com/hankei6km/mdast-avatar)
+
+---
+
 ## Base image(position)
 
 source:
