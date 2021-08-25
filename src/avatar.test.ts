@@ -7,8 +7,8 @@ jest.mock('./lib/generate', () => {
   const reset = () => {
     mockGenerateAvatar.mockReset();
     mockGenerateAvatar.mockImplementation(
-      async (data: string): Promise<string> => {
-        return await jest.fn().mockResolvedValue(`data:${data}`)();
+      async (avatar: string, base: string): Promise<string> => {
+        return await jest.fn().mockResolvedValue(`a:${avatar},b:${base}`)();
       }
     );
   };
@@ -44,7 +44,7 @@ describe('toDataURL()', () => {
     );
     await toImageDataURL(tree);
     expect(toMarkdown(tree)).toEqual(
-      '# title\n\n![alt](data:data:image/png;base64,iVBOR)\ntext\n'
+      '# title\n\n![alt](a:data:image/png;base64,iVBOR,b:)\ntext\n'
     );
   });
   it('should convert "avatar:" in url to DataURL', async () => {
@@ -53,16 +53,16 @@ describe('toDataURL()', () => {
     );
     await toImageDataURL(tree);
     expect(toMarkdown(tree)).toEqual(
-      '# title\n\n![alt](data:data:image/png;base64,iVBOR)\ntext\n'
+      '# title\n\n![alt](a:data:image/png;base64,iVBOR,b:)\ntext\n'
     );
   });
   it('should convert "markerFile" in url to DataURL', async () => {
     const tree = fromMarkdown(
-      '# title\n\n![alt](data:https://hankei6km.github.io/logo.png)\ntext'
+      '# title\n\n![alt](avatar:https://hankei6km.github.io/logo.png)\ntext'
     );
     await toImageDataURL(tree);
     expect(toMarkdown(tree)).toEqual(
-      '# title\n\n![alt](data:https://hankei6km.github.io/logo.png)\ntext\n'
+      '# title\n\n![alt](a:https://hankei6km.github.io/logo.png,b:)\ntext\n'
     );
   });
   it('should convert "avatar:" in alt to DataURL with base image', async () => {
@@ -71,7 +71,7 @@ describe('toDataURL()', () => {
     );
     await toImageDataURL(tree);
     expect(toMarkdown(tree)).toEqual(
-      '# title\n\n![base img](data:data:image/png;base64,iVBOR)\ntext\n'
+      '# title\n\n![base img](a:data:image/png;base64,iVBOR,b:https://hankei6km.github.io/base.png)\ntext\n'
     );
   });
   it('should convert "avatar:" in alt to DataURL with base image(link)', async () => {
@@ -80,7 +80,7 @@ describe('toDataURL()', () => {
     );
     await toImageDataURL(tree);
     expect(toMarkdown(tree)).toEqual(
-      '# title\n\n[![base img](data:data:image/png;base64,iVBOR)](/foo)\ntext\n'
+      '# title\n\n[![base img](a:data:image/png;base64,iVBOR,b:https://hankei6km.github.io/base.png)](/foo)\ntext\n'
     );
   });
   it('should convert "avatar:" in alt to DataURL with base image(break)', async () => {
@@ -89,7 +89,7 @@ describe('toDataURL()', () => {
     );
     await toImageDataURL(tree);
     expect(toMarkdown(tree)).toEqual(
-      '# title\n\n![base img](data:data:image/png;base64,iVBOR)\ntext\n'
+      '# title\n\n![base img](a:data:image/png;base64,iVBOR,b:https://hankei6km.github.io/base.png)\ntext\n'
     );
   });
   it('should not convert "avatar:" in alt if avatar image load failed', async () => {

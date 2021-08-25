@@ -5,6 +5,7 @@ import { selectTarget } from './lib/select';
 import {
   getFileNameFromURL,
   stripMakerProtocol,
+  baseImageUrl,
   updateImageUrl
 } from './lib/util';
 
@@ -66,7 +67,7 @@ export async function byImageAlt(
   const url: string = image.url || '';
   const alt: string = stripMakerProtocol(image.alt || '');
   // as scheme
-  const base = tree.length > 1 ? (tree[1] as Image).url || '' : '';
+  const base = tree.length > 1 ? baseImageUrl(tree[1]) || '' : '';
   const d = await generateAvatar(
     url,
     base,
@@ -93,7 +94,7 @@ export async function byImageScheme(
   const alt: string = image.alt || '';
   // as scheme
   const text = stripMakerProtocol(url);
-  const base = tree.length > 1 ? (tree[1] as Image).url || '' : '';
+  const base = tree.length > 1 ? baseImageUrl(tree[1]) || '' : '';
   const d = await generateAvatar(
     text,
     base,
@@ -118,7 +119,7 @@ export async function byImageFile(
   const url: string = image.url || '';
   const alt: string = image.alt || '';
   const fileName = getFileNameFromURL(image.url);
-  const base = tree.length > 1 ? (tree[1] as Image).url || '' : '';
+  const base = tree.length > 1 ? baseImageUrl(tree[1]) || '' : '';
   const d = await generateAvatar(
     url,
     base,

@@ -60,6 +60,17 @@ export function replaceQuery(url: string, q: string): string {
   return url;
 }
 
+export function baseImageUrl(c: Content): string {
+  if (c.type === 'image') {
+    return c.url || '';
+  } else if (c.type === 'link') {
+    if (c.children[0].type === 'image') {
+      return c.children[0].url || '';
+    }
+  }
+  return '';
+}
+
 export function updateImageUrl(c: Content, url: string) {
   if (c.type === 'image') {
     c.url = url;
