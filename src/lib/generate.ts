@@ -33,7 +33,7 @@ export async function generateAvatar(
         })
       : '';
     let canvasWidth = baseImg ? baseImg.width : avatarImg.width;
-    let canvasHeight = baseImg ? baseImg.width : avatarImg.height;
+    let canvasHeight = baseImg ? baseImg.height : avatarImg.height;
     const avatarPosition =
       mdqrOptions.avatar.position !== undefined
         ? mdqrOptions.avatar.position
