@@ -30,7 +30,8 @@
     "test": "jest",
     "clean": "rm dist/*",
     "upgrade-interactive": "npm-check --update",
-    "csb:test": "npm test -- --runInBand --watchAll"
+    "csb:test": "npm test -- --runInBand --watchAll",
+    "docs": "tsc && cat docs/README.md | node dist/main.js > README.md"
   },
   "dependencies": {
     "@types/unist": "^2.0.6",
