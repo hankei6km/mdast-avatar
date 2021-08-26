@@ -2,6 +2,8 @@
 
 [mdast](https://github.com/syntax-tree/mdast) に含まれる画像をアバターとして Markdown へ埋め込む。
 
+![My avatar](https://github.com/hankei6km/mdast-avatar/raw/main/docs/embedded_avatar.png)
+
 ## Install
 
 npm:

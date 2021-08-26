@@ -99,6 +99,24 @@ yield:
 ![avatar:avatar_position-right-bottom](https://github.com/hankei6km/mdast-avatar/raw/main/example/example-avatar.png)
 ![Base image](https://github.com/hankei6km/mdast-avatar/raw/main/example/example-base.jpg)
 
+---
+
+## Base image(fit)
+
+source:
+
+```markdown
+![avatar:avatar_fit-60](https://github.com/hankei6km/mdast-avatar/raw/main/example/example-avatar.png)
+![Base image](https://github.com/hankei6km/mdast-avatar/raw/main/example/example-base2.png)
+```
+
+yield:
+
+![avatar:avatar_fit-60](https://github.com/hankei6km/mdast-avatar/raw/main/example/example-avatar.png)
+![Base image](https://github.com/hankei6km/mdast-avatar/raw/main/example/example-base2.png)
+
+---
+
 ## Data URL
 
 source:
